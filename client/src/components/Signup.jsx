@@ -1,7 +1,8 @@
 import React from 'react';
+import {Link} from "react-router-dom"
 import {useState, useEffect} from 'react';
 
-const Signup = (onLogin) => {
+const Signup = ({onLogin}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -22,9 +23,7 @@ const Signup = (onLogin) => {
           }),
         }).then((r) => {
           setIsLoading(false);
-          if (r.ok) {
-            r.json().then((user) => onLogin(user));
-          } 
+          r.json().then((user) => onLogin(user));
         });
       }
 
@@ -65,7 +64,7 @@ const Signup = (onLogin) => {
         />
         </div>
         <div className="mb-2">
-        <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-[#243D98] hover:bg-[#9daada] focus:outline-none focus:bg-purple-600" variant="fill" color="primary" type="submit" type="submit">{isLoading ? "Loading..." : "Sign Up"}</button>
+        <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-[#243D98] hover:bg-[#9daada] focus:outline-none focus:bg-purple-600" variant="fill" color="primary" type="submit">{isLoading ? "Loading..." : "Sign Up"}</button>
         </div>
     </form>
     </div>

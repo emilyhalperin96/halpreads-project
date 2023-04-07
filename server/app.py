@@ -1,27 +1,31 @@
-from flask import Flask, make_response, jsonify, request, session as browser_session
 from flask_cors import CORS
+from flask import Flask, make_response, jsonify, request, session as browser_session
 from flask_cors import cross_origin
-from models import db, User
 from extensions import * 
+from flask import Flask 
+from chat_gpt_controller import chat_gpt_route_path, chat_gpt_route
+from models import User 
+import os 
 
-import openai
-import os
 
 app = Flask(__name__)
+#register modules/blueprints
+app.register_blueprint(chat_gpt_route, url_prefix=f'/{chat_gpt_route_path}')
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['CORS_HEADERS'] = 'Content-Type'
 app.secret_key = os.environ.get('SECRET_KEY')
+#app.config.from_object(config.config['development'])
 CORS(app, resources={r"/*": {"origins": "http://localhost:4000"}})
 # CORS(app)
+
 
 
 db.init_app(app)
 migrate.init_app(app, db)
 bcrypt.init_app(app)
-
-with app.app_context():
-    db.create_all()
+    
 
 @app.route('/login', methods=['POST'])
 def login():

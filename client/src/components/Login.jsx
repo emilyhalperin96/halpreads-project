@@ -1,12 +1,16 @@
 import React from 'react';
 import LoginForm from "../components/LoginForm";
 import Signup from "../components/Signup";
-import Home from "../components/Home";
 import { useState } from "react";
 
-const Login = ({onLogin}) => {
+const Login = ({onLogin, setUser}) => {
     const [showLogin, setShowLogin] = useState(true)
-    const [showHome, setShowHome] = useState(false)
+
+    function handleLogin(user) {
+        setUser(user)
+        window.location.href ='/home'
+      }
+      
     return (
         <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
             <div className="w-full p-6 m-auto bg-white rounded-md shadow-xl shadow-rose-600/40 ring-2 ring-[#243D98] lg:max-w-xl">
@@ -16,7 +20,7 @@ const Login = ({onLogin}) => {
                 <h1 className="text-3xl font-semibold text-center text-[#243D98]">
                    Login
                 </h1>
-                <LoginForm className="mt-6" onLogin={onLogin} />
+                <LoginForm className="mt-6" onLogin={handleLogin} setUser={setUser}/>
                 <p className="mt-8 text-xs font-light text-center text-gray-700">
                     {" "}
                     Don't have an account? 
@@ -29,7 +33,6 @@ const Login = ({onLogin}) => {
                 ) : (
                 <>
                 <Signup onLogin={onLogin} />
-                {showHome ? <Home /> : null}
                 </>
                 )}
                 </>

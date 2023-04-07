@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 
-function LoginForm({ onLogin }) {
+function LoginForm({ onLogin, user, setUser }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
   
+    
+
     function handleSubmit(e) {
       e.preventDefault();
       setIsLoading(true);
@@ -21,7 +23,7 @@ function LoginForm({ onLogin }) {
         }
       });
     }
-  
+
     return (
       <form  className="mt-6" onSubmit={handleSubmit}>
         <div className="mb-2">
